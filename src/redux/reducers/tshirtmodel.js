@@ -4,6 +4,7 @@ const initialState = {
   selectedMode: "",
   selectedPart: "",
   selectedTexture: {},
+  shapes: [],
   partList: [],
 };
 
@@ -22,7 +23,8 @@ const tshirtmodelReducer = (state = initialState, action) => {
         action.selectedTexture
       );
       return { ...state, selectedTexture: action.selectedTexture };
-
+    case "ADD_SHAPES_TO_STATE":
+      return { ...state, shapes: [action.shapes] };
     // case "APPLY_TEXTURE_TO_MODEL":
     //     return {...state, partList: }
     default:

@@ -12,9 +12,7 @@ function TshirtModel(props) {
   const { dispatch, newPartList } = props;
   const group = useRef();
   const { nodes, scene } = useGLTF("tshirtModel.glb");
-  console.log('%c 🍢 scene: ', 'font-size:20px;background-color: #3F7CFF;color:#fff;', scene);
   const partList = scene.children;
-
 
   useEffect(() => {
     dispatch(addPartlistToState(partList));

@@ -8,6 +8,7 @@ import TshirtPartSelection from "./components/TshirtPartSelection";
 import TshirtModeSelection from "./components/TshirtModeSelection";
 import TshirtTextureSelection from "./components/TshirtTextureSelection";
 import ApplyTexture from "./components/ApplyTexture";
+import KonvaStage from "./components/KonvaStage";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
   const selectedTexture = useSelector(
     (state) => state.tshirtmodel.selectedTexture
   );
+
   return (
     <div>
       <div>
@@ -60,19 +62,24 @@ function App() {
         )}
       </div>
 
-      <div style={{ position: "absolute", width: "100%", height: "100%" }}>
-        <Canvas camera={{ position: [-5, 2, 117], fov: 50 }}>
-          <OrbitControls />
-          <pointLight position={[0, 0, 90]} />
-          <pointLight position={[0, 0, -90]} />
-          <pointLight position={[0, 90, 0]} />
-          <pointLight position={[0, -90, 0]} />
-          <pointLight position={[50, 0, 0]} />
-          <pointLight position={[-50, 0, 0]} />
-          <Suspense fallback={null}>
-            <TshirtModel dispatch={dispatch} newPartList={partList} />
-          </Suspense>
-        </Canvas>
+      <div className="container" style={{ width: "100%", height: "100%" }}>
+        <div className="col">
+          <Canvas camera={{ position: [-5, 2, 117], fov: 50 }}>
+            <OrbitControls />
+            <pointLight position={[0, 0, 90]} />
+            <pointLight position={[0, 0, -90]} />
+            <pointLight position={[0, 90, 0]} />
+            <pointLight position={[0, -90, 0]} />
+            <pointLight position={[60, 0, 0]} />
+            <pointLight position={[-60, 0, 0]} />
+            <Suspense fallback={null}>
+              <TshirtModel dispatch={dispatch} newPartList={partList} />
+            </Suspense>
+          </Canvas>
+        </div>
+        <div className="col">
+          <KonvaStage dispatch={dispatch} selectedPart={selectedPart} />
+        </div>
       </div>
     </div>
   );

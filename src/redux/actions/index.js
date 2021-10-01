@@ -30,3 +30,10 @@ export const setSelectedTexture = (selectedTexture) => {
     selectedTexture: { name, normalMap, bumpMap },
   };
 };
+
+export const addShapesToState = (shapes)=> {
+  return {
+    type: "ADD_SHAPES_TO_STATE",
+    shapes
+  }
+}
