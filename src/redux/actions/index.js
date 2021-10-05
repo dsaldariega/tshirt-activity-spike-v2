@@ -1,9 +1,9 @@
 import { TextureLoader } from "three";
 
-export const addPartlistToState = (partList) => {
+export const addPartlistsToState = (partLists) => {
   return {
     type: "ADD_PARTLIST_TO_STATE",
-    partList,
+    partLists,
   };
 };
 
@@ -31,9 +31,18 @@ export const setSelectedTexture = (selectedTexture) => {
   };
 };
 
-export const addShapesToState = (shapes)=> {
+export const applyTextureToModel = (partLists) => {
   return {
-    type: "ADD_SHAPES_TO_STATE",
-    shapes
-  }
-}
+    type: "APPLY_TEXTURE_TO_MODEL",
+    partLists,
+  };
+};
+
+export const applyTextureToPart = (index, partList, textureImg) => {
+  return {
+    type: "APPLY_TEXTURE_TO_PART",
+    index,
+    partList,
+    textureImg,
+  };
+};

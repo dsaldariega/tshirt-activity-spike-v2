@@ -1,6 +1,6 @@
 import fabric031NormalMap from "./../assets/textures/Fabric_031_normal.jpg";
 import fabric031BumpMap from "./../assets/textures/Fabric_031_height.png";
-import fabric034NormalMap from "./../assets/textures/Fabric_031_normal.jpg";
+import fabric034NormalMap from "./../assets/textures/Fabric_034_normal.jpg";
 import fabric034BumpMap from "./../assets/textures/Fabric_034_height.png";
 import fabricBurlapNormalMap from "./../assets/textures/Fabric_Burlap_005_Normal.jpg";
 import fabricBurlapBumpMap from "./../assets/textures/Fabric_Burlap_005_Height.png";

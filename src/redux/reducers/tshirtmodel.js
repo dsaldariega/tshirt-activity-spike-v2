@@ -1,32 +1,29 @@
-import { Texture, TextureLoader } from "three";
-
 const initialState = {
   selectedMode: "",
   selectedPart: "",
   selectedTexture: {},
-  shapes: [],
-  partList: [],
+  partLists: [],
 };
 
 const tshirtmodelReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_PARTLIST_TO_STATE":
-      return { ...state, partList: [...action.partList] };
+      return { ...state, partLists: [...action.partLists] };
     case "SET_SELECTED_MODE":
       return { ...state, selectedMode: action.selectedMode };
     case "SET_SELECTED_PART":
       return { ...state, selectedPart: action.selectedPart };
     case "SET_SELECTED_TEXTURE":
-      console.log(
-        "%c 🍖 action.selectedTexture: ",
-        "font-size:20px;background-color: #93C0A4;color:#fff;",
-        action.selectedTexture
-      );
       return { ...state, selectedTexture: action.selectedTexture };
-    case "ADD_SHAPES_TO_STATE":
-      return { ...state, shapes: [action.shapes] };
-    // case "APPLY_TEXTURE_TO_MODEL":
-    //     return {...state, partList: }
+    // case "APPLY_TEXTURE_TO_PART":
+    //   return {
+    //     ...state,
+    //     partList: (action.partList[action.index].material.map =
+    //       action.textureImg),
+    //   };
+    case "APPLY_TEXTURE_TO_MODEL":
+      return { ...state, partList: action.partList };
+
     default:
       return state;
   }

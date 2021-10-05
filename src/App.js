@@ -9,78 +9,89 @@ import TshirtModeSelection from "./components/TshirtModeSelection";
 import TshirtTextureSelection from "./components/TshirtTextureSelection";
 import ApplyTexture from "./components/ApplyTexture";
 import KonvaStage from "./components/KonvaStage";
+import ChangePosition from "./components/ChangePosition";
 
 function App() {
   const dispatch = useDispatch();
-  const partList = useSelector((state) => state.tshirtmodel.partList);
+  const partLists = useSelector((state) => state.tshirtmodel.partLists);
   console.log(
     "%c 🍈 partList: ",
     "font-size:20px;background-color: #4b4b4b;color:#fff;",
-    partList
+    partLists
   );
   const selectedPart = useSelector((state) => state.tshirtmodel.selectedPart);
+  console.log(
+    "%c 🍚 selectedPart: ",
+    "font-size:20px;background-color: #6EC1C2;color:#fff;",
+    selectedPart
+  );
   const selectedMode = useSelector((state) => state.tshirtmodel.selectedMode);
+  console.log(
+    "%c 🍈 selectedMode: ",
+    "font-size:20px;background-color: #EA7E5C;color:#fff;",
+    selectedMode
+  );
   const selectedTexture = useSelector(
     (state) => state.tshirtmodel.selectedTexture
   );
-
+  console.log(
+    "%c 🥚 selectedTexture: ",
+    "font-size:20px;background-color: #FFDD4D;color:#fff;",
+    selectedTexture
+  );
   return (
     <div>
-      <div>
-        <TshirtModeSelection dispatch={dispatch} selectedMode={selectedMode} />
-      </div>
+      <TshirtModeSelection dispatch={dispatch} selectedMode={selectedMode} />
+
       {selectedMode === "Part" ? (
-        <div>
-          <TshirtPartSelection
-            dispatch={dispatch}
-            partList={partList}
-            selectedPart={selectedPart}
-          />
-        </div>
+        <TshirtPartSelection
+          dispatch={dispatch}
+          partLists={partLists}
+          selectedPart={selectedPart}
+        />
       ) : (
         ""
       )}
+
+      {selectedMode === "Model" || selectedPart ? (
+        <TshirtTextureSelection
+          dispatch={dispatch}
+          selectedTexture={selectedTexture}
+        />
+      ) : (
+        ""
+      )}
+
+      {Object.keys(selectedTexture).length ? (
+        <ApplyTexture
+          dispatch={dispatch}
+          partLists={partLists}
+          selectedTexture={selectedTexture}
+          selectedMode={selectedMode}
+          selectedPart={selectedPart}
+        />
+      ) : (
+        ""
+      )}
+      <ChangePosition dispatch={dispatch} partLists={partLists} />
       <div>
-        {selectedMode === "Model" || selectedPart ? (
-          <TshirtTextureSelection
-            dispatch={dispatch}
-            selectedTexture={selectedTexture}
-          />
-        ) : (
-          ""
-        )}
-
-        {Object.keys(selectedTexture).length ? (
-          <ApplyTexture
-            dispatch={dispatch}
-            partList={partList}
-            selectedTexture={selectedTexture}
-            selectedMode={selectedMode}
-          />
-        ) : (
-          ""
-        )}
+        <Canvas camera={{ position: [-5, 2, 117], fov: 50 }}>
+          <OrbitControls />
+          <pointLight position={[-93.363, 64.468, -88.718]} />
+          <pointLight position={[-114.328, -55.975, 100.364]} />
+          <pointLight position={[120.977, 60.98, 47.058]} />
+          <pointLight position={[94.856, 69.277, -125.89]} />
+          <Suspense fallback={null}>
+            <TshirtModel dispatch={dispatch} />
+          </Suspense>
+        </Canvas>
       </div>
 
-      <div className="container" style={{ width: "100%", height: "100%" }}>
-        <div className="col">
-          <Canvas camera={{ position: [-5, 2, 117], fov: 50 }}>
-            <OrbitControls />
-            <pointLight position={[0, 0, 90]} />
-            <pointLight position={[0, 0, -90]} />
-            <pointLight position={[0, 90, 0]} />
-            <pointLight position={[0, -90, 0]} />
-            <pointLight position={[60, 0, 0]} />
-            <pointLight position={[-60, 0, 0]} />
-            <Suspense fallback={null}>
-              <TshirtModel dispatch={dispatch} newPartList={partList} />
-            </Suspense>
-          </Canvas>
-        </div>
-        <div className="col">
-          <KonvaStage dispatch={dispatch} selectedPart={selectedPart} />
-        </div>
-      </div>
+      <KonvaStage
+        dispatch={dispatch}
+        selectedPart={selectedPart}
+        partLists={partLists}
+      />
     </div>
   );
 }

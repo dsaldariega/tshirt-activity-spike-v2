@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextureLoader } from "three";
+import { addPartlistsToState } from "../redux/actions";
 
 function ApplyFromKonva(props) {
-  const { dispatch, stageRef, shapes, setShapes } = props;
+  const { dispatch, stageRef, shapes, setShapes, partLists, selectedPart } =
+    props;
 
   const handleGenerateStar = () => {
     setShapes([
@@ -20,23 +22,11 @@ function ApplyFromKonva(props) {
         fill: "#89b717",
         opacity: 0.8,
         draggable: true,
-        // onDragStart: () => {
-        //   setStar({
-        //     isDragging: true,
-        //   });
-        // },
-        // onDragEnd: (e) => {
-        //   setStar({
-        //     isDragging: false,
-        //     x: e.target.x(),
-        //     y: e.target.y(),
-        //   });
-        // },
       },
     ]);
   };
 
-  const handleGenerateImage = (image) => {
+  const handleGenerateShape = (image) => {
     setShapes([
       ...shapes,
       {
@@ -74,7 +64,7 @@ function ApplyFromKonva(props) {
       const image = new window.Image();
       image.src = base64;
 
-      handleGenerateImage(image);
+      handleGenerateShape(image);
     }
   };
   const clearStage = () => {
@@ -85,7 +75,14 @@ function ApplyFromKonva(props) {
     const img = stageRef.current.toDataURL({ type: "image/jpeg" });
     const textureImg = new TextureLoader().load(img);
 
+    const part = partLists.find((part) => {
+      return part.name === selectedPart;
+    });
+    part.material.map = textureImg;
+    part.material.map.needsUpdate = true;
+    part.material.needsUpdate = true;
     textureImg.flipY = false;
+    dispatch(addPartlistsToState(partLists));
   };
 
   return (

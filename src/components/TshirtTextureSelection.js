@@ -4,11 +4,6 @@ import { maps } from "./../utils/maps";
 
 function TshirtTextureSelection(props) {
   const { dispatch, selectedTexture } = props;
-  console.log(
-    "%c 🍦 selectedTexture: ",
-    "font-size:20px;background-color: #33A5FF;color:#fff;",
-    selectedTexture
-  );
   const handleChangeNormalTexture = (e) => {
     dispatch(setSelectedTexture(maps[e.target.value]));
   };

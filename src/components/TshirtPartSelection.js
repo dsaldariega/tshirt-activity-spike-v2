@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { setSelectedPart } from "../redux/actions";
 
 function TshirtPartSelection(props) {
-  const { dispatch, partList, selectedPart } = props;
+  const { dispatch, partLists, selectedPart } = props;
   console.log(
     "%c 🥪 partList: ",
     "font-size:20px;background-color: #42b983;color:#fff;",
-    partList
+    partLists
   );
 
   const handleSelectModelPart = (e) => {
@@ -16,8 +16,8 @@ function TshirtPartSelection(props) {
   return (
     <div>
       <select value={selectedPart} onChange={handleSelectModelPart}>
-        {partList.map((part) => {
-          return <option key={part.uuid}>{part.name}</option>;
+        {partLists.map((part, index) => {
+          return <option key={index}>{part.name}</option>;
         })}
       </select>
     </div>
